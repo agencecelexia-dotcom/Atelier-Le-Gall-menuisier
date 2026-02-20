@@ -126,6 +126,12 @@ export function Footer() {
               >
                 Politique de confidentialité
               </Link>
+              <Link
+                href="/admin/login"
+                className="text-primary-300 text-sm hover:text-white transition-colors"
+              >
+                Administration
+              </Link>
             </div>
           </div>
         </div>
