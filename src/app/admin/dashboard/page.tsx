@@ -140,12 +140,27 @@ const FAKE_STATS = {
   ],
 };
 
+const STATUS_OPTIONS = [
+  { label: "Nouveau", color: "bg-blue-50 text-blue-700" },
+  { label: "Contacté", color: "bg-amber-50 text-amber-700" },
+  { label: "Devis envoyé", color: "bg-green-50 text-green-700" },
+  { label: "En cours", color: "bg-purple-50 text-purple-700" },
+  { label: "Terminé", color: "bg-emerald-50 text-emerald-700" },
+  { label: "Annulé", color: "bg-red-50 text-red-700" },
+];
+
+function getStatusColor(status: string) {
+  return STATUS_OPTIONS.find((s) => s.label === status)?.color ?? "bg-gray-50 text-gray-700";
+}
+
 type Submission = (typeof FAKE_STATS.recentSubmissions)[number];
 
 export default function AdminDashboardPage() {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const [submissions, setSubmissions] = useState(FAKE_STATS.recentSubmissions);
+  const [statusDropdownId, setStatusDropdownId] = useState<number | null>(null);
   const router = useRouter();
 
   const fetchData = useCallback(async () => {
@@ -173,6 +188,16 @@ export default function AdminDashboardPage() {
   // Combiner les vrais events avec les faux pour que le dashboard soit toujours rempli
   const realViews = events.filter((e) => e.type === "page_view").length;
   const totalViews = FAKE_STATS.totalViews + realViews;
+
+  const updateStatus = (id: number, newStatus: string) => {
+    setSubmissions((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, status: newStatus } : s))
+    );
+    if (selectedSubmission?.id === id) {
+      setSelectedSubmission((prev) => prev ? { ...prev, status: newStatus } : null);
+    }
+    setStatusDropdownId(null);
+  };
 
   const handleLogout = () => {
     document.cookie = "adminAuth=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
@@ -440,7 +465,7 @@ export default function AdminDashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {FAKE_STATS.recentSubmissions.map((s) => (
+                {submissions.map((s) => (
                   <tr
                     key={s.id}
                     onClick={() => setSelectedSubmission(s)}
@@ -455,18 +480,35 @@ export default function AdminDashboardPage() {
                     <td className="py-3 pr-4">
                       <span className="text-sm text-text-muted">{s.date}</span>
                     </td>
-                    <td className="py-3 pr-4">
-                      <span
-                        className={`inline-flex text-xs font-medium px-2.5 py-1 rounded-full ${
-                          s.status === "Nouveau"
-                            ? "bg-blue-50 text-blue-700"
-                            : s.status === "Contacté"
-                            ? "bg-amber-50 text-amber-700"
-                            : "bg-green-50 text-green-700"
-                        }`}
+                    <td className="py-3 pr-4 relative">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setStatusDropdownId(statusDropdownId === s.id ? null : s.id);
+                        }}
+                        className={`inline-flex text-xs font-medium px-2.5 py-1 rounded-full cursor-pointer hover:ring-2 hover:ring-offset-1 hover:ring-accent/30 transition-all ${getStatusColor(s.status)}`}
                       >
                         {s.status}
-                      </span>
+                      </button>
+                      {statusDropdownId === s.id && (
+                        <div
+                          className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-premium-lg border border-border/50 py-1 z-20 min-w-[160px]"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {STATUS_OPTIONS.map((opt) => (
+                            <button
+                              key={opt.label}
+                              onClick={() => updateStatus(s.id, opt.label)}
+                              className={`w-full text-left px-3 py-2 text-sm hover:bg-surface transition-colors flex items-center gap-2 ${
+                                s.status === opt.label ? "font-semibold" : ""
+                              }`}
+                            >
+                              <span className={`inline-block w-2 h-2 rounded-full ${opt.color.split(" ")[0].replace("50", "500")}`} />
+                              {opt.label}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </td>
                     <td className="py-3">
                       <ChevronRight size={16} className="text-text-muted" />
@@ -515,22 +557,33 @@ export default function AdminDashboardPage() {
             {/* Contenu */}
             <div className="p-6 space-y-5">
               {/* Statut + Date */}
-              <div className="flex items-center gap-3">
-                <span
-                  className={`inline-flex text-xs font-medium px-2.5 py-1 rounded-full ${
-                    selectedSubmission.status === "Nouveau"
-                      ? "bg-blue-50 text-blue-700"
-                      : selectedSubmission.status === "Contacté"
-                      ? "bg-amber-50 text-amber-700"
-                      : "bg-green-50 text-green-700"
-                  }`}
-                >
-                  {selectedSubmission.status}
-                </span>
-                <span className="flex items-center gap-1.5 text-sm text-text-muted">
-                  <Clock size={14} />
-                  {selectedSubmission.date} à {selectedSubmission.time}
-                </span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1.5 text-sm text-text-muted">
+                    <Clock size={14} />
+                    {selectedSubmission.date} à {selectedSubmission.time}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+                  Statut
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {STATUS_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => updateStatus(selectedSubmission.id, opt.label)}
+                      className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
+                        selectedSubmission.status === opt.label
+                          ? `${getStatusColor(opt.label)} ring-2 ring-offset-1 ring-current`
+                          : "bg-surface text-text-muted hover:bg-surface-2"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Infos contact */}

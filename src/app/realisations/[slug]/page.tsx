@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle, Clock, MapPin, Wrench } from "lucide-react";
 import { projects } from "@/data/projects";
+import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -63,35 +63,20 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Before/After */}
+      {/* Before/After Slider */}
       <section className="py-16 md:py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div>
-              <h3 className="font-heading text-xl font-semibold mb-4 text-text-muted">Avant</h3>
-              <div className="relative h-72 md:h-96 rounded-xl overflow-hidden shadow-premium">
-                <Image
-                  src={project.beforeImage}
-                  alt={`${project.title} — Avant`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-            <div>
-              <h3 className="font-heading text-xl font-semibold mb-4 text-accent">Après</h3>
-              <div className="relative h-72 md:h-96 rounded-xl overflow-hidden shadow-premium-lg">
-                <Image
-                  src={project.afterImage}
-                  alt={`${project.title} — Après`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-center mb-8">
+            Avant / Après
+          </h2>
+          <BeforeAfterSlider
+            beforeImage={project.beforeImage}
+            afterImage={project.afterImage}
+            beforeAlt={`${project.title} — Avant`}
+            afterAlt={`${project.title} — Après`}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
 
           {/* Description */}
           <div className="max-w-3xl mx-auto">
@@ -150,17 +135,17 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-accent-800">
+      <section className="py-16 bg-surface-2 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl font-bold text-white mb-4">
+          <h2 className="font-heading text-3xl font-bold text-primary mb-4">
             Un projet similaire ?
           </h2>
-          <p className="text-white/80 mb-8">
+          <p className="text-text-muted mb-8">
             Contactez Michaël pour discuter de votre projet et obtenir un devis personnalisé.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/90 transition-colors"
+            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-700 transition-colors shadow-lg"
           >
             Demander un Devis Gratuit
           </Link>
