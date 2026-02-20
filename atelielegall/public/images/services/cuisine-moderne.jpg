@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+  <rect width="1800" height="1200" fill="#3D2B1F"/>
+  <text x="50%" y="45%" font-family="system-ui, sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Cuisine Moderne</text>
+  <text x="50%" y="55%" font-family="system-ui, sans-serif" font-size="14" fill="rgba(255,255,255,0.6)" text-anchor="middle" dominant-baseline="middle">1800x1200</text>
+</svg>
