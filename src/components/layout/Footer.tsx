@@ -29,6 +29,9 @@ export function Footer() {
           <Link href="/politique-confidentialite" className="hover:text-white/60 transition-colors">
             Confidentialité
           </Link>
+          <Link href="/admin/login" className="hover:text-white/60 transition-colors">
+            Admin
+          </Link>
         </div>
       </div>
     </footer>
