@@ -12,7 +12,7 @@ export function CtaSection() {
         <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
           Parlons de votre projet
         </h2>
-        <p className="text-primary-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-white/75 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
           Chaque projet commence par une conversation. Contactez Michaël pour
           discuter de vos envies et obtenir un devis personnalisé gratuit.
         </p>

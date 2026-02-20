@@ -11,7 +11,7 @@ export function Footer() {
             <h3 className="font-heading text-2xl font-bold text-white mb-4">
               Atelier Le Gall
             </h3>
-            <p className="text-primary-200 text-sm leading-relaxed mb-4">
+            <p className="text-white/80 text-sm leading-relaxed mb-4">
               Menuiserie d&apos;excellence depuis plus de 20 ans. Créations sur
               mesure en Côtes-d&apos;Armor et toute la Bretagne.
             </p>
@@ -36,7 +36,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-primary-200 text-sm hover:text-accent-300 transition-colors"
+                    className="text-white/80 text-sm hover:text-accent-200 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -60,7 +60,7 @@ export function Footer() {
                 "Rénovation",
               ].map((service) => (
                 <li key={service}>
-                  <span className="text-primary-200 text-sm">{service}</span>
+                  <span className="text-white/80 text-sm">{service}</span>
                 </li>
               ))}
             </ul>
@@ -73,37 +73,37 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <Phone size={18} className="text-accent-300 mt-0.5 shrink-0" />
+                <Phone size={18} className="text-accent-200 mt-0.5 shrink-0" />
                 <a
                   href="tel:0673016237"
-                  className="text-primary-200 text-sm hover:text-white transition-colors"
+                  className="text-white/80 text-sm hover:text-white transition-colors"
                 >
                   06 73 01 62 37
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Mail size={18} className="text-accent-300 mt-0.5 shrink-0" />
+                <Mail size={18} className="text-accent-200 mt-0.5 shrink-0" />
                 <a
                   href="mailto:atelier.legall22450@gmail.com"
-                  className="text-primary-200 text-sm hover:text-white transition-colors break-all"
+                  className="text-white/80 text-sm hover:text-white transition-colors break-all"
                 >
                   atelier.legall22450@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-accent-300 mt-0.5 shrink-0" />
+                <MapPin size={18} className="text-accent-200 mt-0.5 shrink-0" />
                 <a
                   href="https://www.google.com/maps/place/Atelier+Le+Gall+menuisier/@48.711302,-3.2882653,17z"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary-200 text-sm hover:text-white transition-colors"
+                  className="text-white/80 text-sm hover:text-white transition-colors"
                 >
                   22450, Côtes-d&apos;Armor, Bretagne
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Clock size={18} className="text-accent-300 mt-0.5 shrink-0" />
-                <span className="text-primary-200 text-sm">
+                <Clock size={18} className="text-accent-200 mt-0.5 shrink-0" />
+                <span className="text-white/80 text-sm">
                   Lun – Ven : 8h – 18h
                 </span>
               </li>
@@ -114,26 +114,26 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary-700">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-primary-300 text-sm">
+            <p className="text-white/60 text-sm">
               &copy; {new Date().getFullYear()} Atelier Le Gall. Tous droits
               réservés.
             </p>
             <div className="flex gap-6">
               <Link
                 href="/mentions-legales"
-                className="text-primary-300 text-sm hover:text-white transition-colors"
+                className="text-white/60 text-sm hover:text-white transition-colors"
               >
                 Mentions légales
               </Link>
               <Link
                 href="/politique-confidentialite"
-                className="text-primary-300 text-sm hover:text-white transition-colors"
+                className="text-white/60 text-sm hover:text-white transition-colors"
               >
                 Politique de confidentialité
               </Link>
               <Link
                 href="/admin/login"
-                className="text-primary-300 text-sm hover:text-white transition-colors"
+                className="text-white/60 text-sm hover:text-white transition-colors"
               >
                 Administration
               </Link>

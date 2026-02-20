@@ -17,13 +17,13 @@ export default function AProposPage() {
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-accent-300 text-sm font-medium tracking-widest uppercase mb-4">
+          <p className="text-accent-200 text-sm font-medium tracking-widest uppercase mb-4">
             Notre Histoire
           </p>
           <h1 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
             À Propos de l&apos;Atelier
           </h1>
-          <p className="text-primary-200 text-lg max-w-2xl mx-auto">
+          <p className="text-white/75 text-lg max-w-2xl mx-auto">
             Plus de 20 ans de passion, de précision et de créativité au service
             de vos projets.
           </p>
